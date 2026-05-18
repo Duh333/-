@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Коллаборация с МожноЖе</title>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700;900&family=Nunito:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --green: #1D9E75;
+    --green-light: #E1F5EE;
+    --green-dark: #085041;
+    --lime: #97C459;
+    --lime-light: #EAF3DE;
+    --amber: #EF9F27;
+    --amber-light: #FAEEDA;
+    --coral: #D85A30;
+    --coral-light: #FAECE7;
+    --text: #1a1a1a;
+    --text-muted: #5F5E5A;
+    --bg: #f7faf5;
+  }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+  }
+
+  /* HERO */
+  .hero {
+    background: var(--green-dark);
+    padding: 80px 40px 60px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 220px; height: 220px;
+    border-radius: 50%;
+    background: rgba(151,196,89,0.12);
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -40px; left: -40px;
+    width: 160px; height: 160px;
+    border-radius: 50%;
+    background: rgba(239,159,39,0.1);
+  }
+
+  .tag {
+    display: inline-block;
+    background: var(--lime);
+    color: var(--green-dark);
+    font-family: 'Unbounded', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    padding: 6px 16px;
+    border-radius: 20px;
+    margin-bottom: 24px;
+    text-transform: uppercase;
+  }
+
+  .hero h1 {
+    font-family: 'Unbounded', sans-serif;
+    font-size: clamp(28px, 5vw, 52px);
+    font-weight: 900;
+    color: #fff;
+    line-height: 1.15;
+    max-width: 680px;
+    margin: 0 auto 20px;
+  }
+  .hero h1 span { color: var(--lime); }
+
+  .hero p {
+    font-size: 17px;
+    color: rgba(255,255,255,0.75);
+    max-width: 520px;
+    margin: 0 auto 40px;
+    line-height: 1.7;
+  }
+
+  .btn-main {
+    display: inline-block;
+    background: var(--lime);
+    color: var(--green-dark);
+    font-family: 'Unbounded', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    padding: 16px 40px;
+    border-radius: 50px;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    text-decoration: none;
+    letter-spacing: 0.02em;
+  }
+  .btn-main:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(151,196,89,0.35);
+  }
+
+  .cans {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 48px;
+    flex-wrap: wrap;
+  }
+  .can {
+    width: 64px; height: 100px;
+    border-radius: 14px 14px 10px 10px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    flex-shrink: 0;
+  }
+  .can::before {
+    content: '';
+    position: absolute;
+    top: -6px; left: 50%;
+    transform: translateX(-50%);
+    width: 36px; height: 12px;
+    background: inherit;
+    filter: brightness(0.85);
+    border-radius: 4px 4px 0 0;
+  }
+  .can-green { background: linear-gradient(160deg, #1D9E75, #085041); }
+  .can-lime  { background: linear-gradient(160deg, #97C459, #3B6D11); }
+  .can-amber { background: linear-gradient(160deg, #EF9F27, #854F0B); }
+
+  /* SECTIONS */
+  section {
+    padding: 64px 40px;
+    max-width: 860px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-family: 'Unbounded', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--green);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  h2 {
+    font-family: 'Unbounded', sans-serif;
+    font-size: clamp(22px, 3.5vw, 34px);
+    font-weight: 900;
+    line-height: 1.2;
+    margin-bottom: 20px;
+    color: var(--green-dark);
+  }
+
+  .desc-text {
+    font-size: 16px;
+    color: var(--text-muted);
+    line-height: 1.8;
+    max-width: 620px;
+  }
+
+  /* VALUES */
+  .values {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+    gap: 16px;
+    margin-top: 36px;
+  }
+  .value-card {
+    background: #fff;
+    border: 1.5px solid var(--green-light);
+    border-radius: 16px;
+    padding: 20px 18px;
+  }
+  .value-icon { font-size: 28px; margin-bottom: 10px; display: block; }
+  .value-card h3 {
+    font-family: 'Unbounded', sans-serif;
+    font-size: 13px; font-weight: 700;
+    color: var(--green-dark); margin-bottom: 6px;
+  }
+  .value-card p { font-size: 13px; color: var(--text-muted); line-height: 1.6; }
+
+  .divider { height: 2px; background: var(--green-light); border: none; margin: 0; }
+
+  /* EXAMPLES */
+  .examples-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    margin-top: 36px;
+  }
+  .example-card {
+    border-radius: 20px;
+    padding: 28px 22px;
+    position: relative;
+    overflow: hidden;
+  }
+  .example-card::after {
+    content: attr(data-emoji);
+    position: absolute;
+    bottom: -10px; right: 10px;
+    font-size: 60px;
+    opacity: 0.18;
+    line-height: 1;
+  }
+  .example-card.green  { background: var(--green-light); }
+  .example-card.amber  { background: var(--amber-light); }
+  .example-card.coral  { background: var(--coral-light); }
+  .example-card.lime   { background: var(--lime-light); }
+  .example-card h3 {
+    font-family: 'Unbounded', sans-serif;
+    font-size: 14px; font-weight: 700;
+    color: var(--green-dark); margin-bottom: 8px; line-height: 1.3;
+  }
+  .example-card.amber h3 { color: #633806; }
+  .example-card.coral h3 { color: #4A1B0C; }
+  .example-card p { font-size: 13px; color: var(--text-muted); line-height: 1.6; position: relative; }
+
+  /* STEPS */
+  .how-steps { display: flex; flex-direction: column; gap: 20px; margin-top: 36px; }
+  .step {
+    display: flex; gap: 20px; align-items: flex-start;
+    background: #fff; border-radius: 16px; padding: 20px 22px;
+    border: 1.5px solid var(--green-light);
+  }
+  .step-num {
+    font-family: 'Unbounded', sans-serif;
+    font-size: 20px; font-weight: 900;
+    color: var(--lime); min-width: 32px; line-height: 1; padding-top: 2px;
+  }
+  .step h3 {
+    font-family: 'Unbounded', sans-serif;
+    font-size: 14px; font-weight: 700;
+    color: var(--green-dark); margin-bottom: 4px;
+  }
+  .step p { font-size: 14px; color: var(--text-muted); line-height: 1.6; }
+
+  /* FORM SECTION */
+  .form-section {
+    background: var(--green-dark);
+    padding: 64px 40px;
+    text-align: center;
+  }
+  .form-section h2 { color: #fff; margin-bottom: 12px; }
+  .form-section .desc-text { color: rgba(255,255,255,0.65); margin: 0 auto 40px; }
+
+  .contact-form {
+    max-width: 520px; margin: 0 auto;
+    display: flex; flex-direction: column; gap: 16px;
+  }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+  .contact-form input,
+  .contact-form textarea {
+    background: rgba(255,255,255,0.08);
+    border: 1.5px solid rgba(255,255,255,0.2);
+    border-radius: 12px;
+    padding: 14px 18px;
+    color: #fff;
+    font-family: 'Nunito', sans-serif;
+    font-size: 15px;
+    outline: none;
+    transition: border-color 0.2s;
+    width: 100%;
+  }
+  .contact-form input::placeholder,
+  .contact-form textarea::placeholder { color: rgba(255,255,255,0.4); }
+  .contact-form input:focus,
+  .contact-form textarea:focus { border-color: var(--lime); }
+  .contact-form textarea { resize: vertical; min-height: 100px; }
+
+  .submit-btn {
+    background: var(--lime);
+    color: var(--green-dark);
+    font-family: 'Unbounded', sans-serif;
+    font-size: 14px; font-weight: 700;
+    padding: 16px 40px;
+    border-radius: 50px; border: none;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    letter-spacing: 0.02em;
+    margin-top: 8px;
+  }
+  .submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(151,196,89,0.4);
+  }
+  .submit-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+  .success-msg {
+    display: none;
+    background: rgba(151,196,89,0.15);
+    border: 1.5px solid var(--lime);
+    border-radius: 16px;
+    padding: 24px;
+    color: var(--lime);
+    font-family: 'Unbounded', sans-serif;
+    font-size: 14px; font-weight: 700;
+    text-align: center; margin-top: 16px;
+  }
+  .error-msg {
+    display: none;
+    background: rgba(216,90,48,0.15);
+    border: 1.5px solid var(--coral);
+    border-radius: 16px;
+    padding: 16px;
+    color: #F0997B;
+    font-size: 14px; text-align: center; margin-top: 8px;
+  }
+
+  footer {
+    text-align: center;
+    padding: 28px 40px;
+    background: var(--green-dark);
+    border-top: 1px solid rgba(255,255,255,0.07);
+    color: rgba(255,255,255,0.35);
+    font-size: 13px;
+  }
+
+  @media (max-width: 560px) {
+    .hero { padding: 60px 24px 48px; }
+    section { padding: 48px 24px; }
+    .form-section { padding: 48px 24px; }
+    .form-row { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="tag">🍋 Коллаборации</div>
+  <h1>Твой бренд — на этикетке <span>МожноЖе</span></h1>
+  <p>Ищем бренды и людей, разделяющих наши ценности: честность, здоровье и радость без компромиссов. Вместе создаём лимитированные банки полезного лимонада.</p>
+  <a href="#form" class="btn-main">Начать коллаборацию →</a>
+  <div class="cans">
+    <div class="can can-green">🌿</div>
+    <div class="can can-lime">🍋</div>
+    <div class="can can-amber">✨</div>
+    <div class="can can-green">🌿</div>
+    <div class="can can-lime">💚</div>
+  </div>
+</div>
+
+<!-- О ПРОЕКТЕ -->
+<section>
+  <div class="section-label">О проекте</div>
+  <h2>Почему МожноЖе?</h2>
+  <p class="desc-text">МожноЖе — это лимонад с пребиотиками, без сахара и без лишнего. Мы верим, что вкусное может быть полезным — и делаем это реальностью каждый день. Наша этикетка — это холст для тех, кто разделяет этот взгляд на жизнь.</p>
+  <div class="values">
+    <div class="value-card">
+      <span class="value-icon">🌱</span>
+      <h3>Честный состав</h3>
+      <p>Только то, что работает. Никаких скрытых ингредиентов.</p>
+    </div>
+    <div class="value-card">
+      <span class="value-icon">💚</span>
+      <h3>Забота о теле</h3>
+      <p>Пребиотики, без сахара — польза в каждом глотке.</p>
+    </div>
+    <div class="value-card">
+      <span class="value-icon">✨</span>
+      <h3>Радость без вины</h3>
+      <p>Можно всё, что вкусно и хорошо для тебя.</p>
+    </div>
+    <div class="value-card">
+      <span class="value-icon">🤝</span>
+      <h3>Сообщество</h3>
+      <p>Мы растём вместе с людьми, которые нам близки.</p>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ПРИМЕРЫ -->
+<section>
+  <div class="section-label">Примеры коллабораций</div>
+  <h2>Кто уже мог бы быть на банке</h2>
+  <p class="desc-text">Мы открыты к самым разным форматам — от крупных брендов до авторских проектов и личных историй.</p>
+  <div class="examples-grid">
+    <div class="example-card green" data-emoji="🌿">
+      <h3>Эко-бренд косметики</h3>
+      <p>Общие ценности натуральности и заботы о теле — идеальный союз на этикетке.</p>
+    </div>
+    <div class="example-card amber" data-emoji="🎨">
+      <h3>Художник или иллюстратор</h3>
+      <p>Лимитированная серия с авторским принтом — арт-объект, который хочется оставить.</p>
+    </div>
+    <div class="example-card coral" data-emoji="🏋️">
+      <h3>Фитнес-студия или тренер</h3>
+      <p>Движение + польза = коллаборация, которая вдохновляет двигаться больше.</p>
+    </div>
+    <div class="example-card lime" data-emoji="📖">
+      <h3>Книжный магазин</h3>
+      <p>Читай, пей лимонад, живи хорошо. Культурный союз с характером.</p>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- КАК ЭТО РАБОТАЕТ -->
+<section>
+  <div class="section-label">Как это работает</div>
+  <h2>Три шага до своей банки</h2>
+  <div class="how-steps">
+    <div class="step">
+      <div class="step-num">01</div>
+      <div>
+        <h3>Оставляешь заявку</h3>
+        <p>Расскажи о своём бренде или проекте — нам важно понять, кто ты и чем живёшь.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">02</div>
+      <div>
+        <h3>Знакомимся и придумываем вместе</h3>
+        <p>Коллаборация рождается в диалоге. Обсуждаем идею, формат и визуальное решение.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">03</div>
+      <div>
+        <h3>Твоя банка выходит в свет</h3>
+        <p>Лимитированная серия с твоей историей попадает к людям, которым это важно.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ФОРМА -->
+<div class="form-section" id="form">
+  <h2>Начнём?</h2>
+  <p class="desc-text">Расскажи о себе — и мы свяжемся с тобой в ближайшее время.</p>
+  <div class="contact-form">
+    <div class="form-row">
+      <input type="text" id="name" placeholder="Имя / название бренда" required>
+      <input type="text" id="contact" placeholder="Telegram или телефон" required>
+    </div>
+    <input type="text" id="category" placeholder="Сфера / ниша (косметика, арт, спорт...)" required>
+    <textarea id="message" placeholder="Расскажи о себе и своей идее коллаборации..."></textarea>
+    <button class="submit-btn" onclick="sendToTelegram()">✉️ Отправить заявку</button>
+    <div class="success-msg" id="success">🎉 Заявка отправлена! Мы скоро свяжемся с тобой.</div>
+    <div class="error-msg" id="error">Не удалось отправить. Проверьте настройки Telegram Bot.</div>
+  </div>
+</div>
+
+<footer>
+  © 2025 МожноЖе · Лимонад с пребиотиками без сахара · Сделано с любовью 🍋
+</footer>
+
+<script>
+  // ⚠️ ЗАМЕНИ НА СВОИ ДАННЫЕ:
+  const TG_BOT_TOKEN = 'ВАШ_BOT_TOKEN';   // от @BotFather
+  const TG_CHAT_ID   = 'ВАШ_CHAT_ID';     // твой Chat ID
+
+  async function sendToTelegram() {
+    const name     = document.getElementById('name').value.trim();
+    const contact  = document.getElementById('contact').value.trim();
+    const category = document.getElementById('category').value.trim();
+    const message  = document.getElementById('message').value.trim();
+
+    if (!name || !contact || !category) {
+      alert('Пожалуйста, заполни обязательные поля.');
+      return;
+    }
+
+    const btn = document.querySelector('.submit-btn');
+    btn.disabled = true;
+    btn.textContent = 'Отправляем...';
+
+    const text =
+      `🍋 *Новая заявка на коллаборацию!*\n\n` +
+      `👤 *Имя / бренд:* ${name}\n` +
+      `📱 *Контакт:* ${contact}\n` +
+      `🏷 *Сфера:* ${category}\n` +
+      `💬 *Сообщение:* ${message || '—'}`;
+
+    try {
+      const res = await fetch(
+        `https://api.telegram.org/bot${TG_BOT_TOKEN}/sendMessage`,
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ chat_id: TG_CHAT_ID, text, parse_mode: 'Markdown' })
+        }
+      );
+      const data = await res.json();
+      if (data.ok) {
+        document.getElementById('success').style.display = 'block';
+        document.getElementById('error').style.display = 'none';
+        document.getElementById('name').value = '';
+        document.getElementById('contact').value = '';
+        document.getElementById('category').value = '';
+        document.getElementById('message').value = '';
+      } else {
+        throw new Error(data.description);
+      }
+    } catch (e) {
+      document.getElementById('error').style.display = 'block';
+      document.getElementById('success').style.display = 'none';
+      console.error(e);
+    }
+
+    btn.disabled = false;
+    btn.textContent = '✉️ Отправить заявку';
+  }
+</script>
+</body>
+</html>
